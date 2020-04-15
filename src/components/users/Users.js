@@ -3,7 +3,7 @@ import UserItem from './UserItem.js';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 const Users = ({users, loading}) => {
-
+console.log('users-->',users)
   if(loading){
   return <Spinner/>
   }
