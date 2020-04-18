@@ -39,15 +39,14 @@ class App extends Component {
   getUser = async(username) => {
     this.setState({loading: true});
   const res = await axios.get(`https://api.github.com/users/${username}?client_id=4129af26042112503ded&client_secret=b453053237de910a81bfa3564b591f3572539ec9`);
-  
-  this.setState({users: res.data.items, loading:false}); 
+  console.log('res.data',res.data);
+  this.setState({users: res.data, loading:false}); 
   }
 // get user repos
 getUserRepos = async(username) => {
   this.setState({loading: true});
-const res = await axios.get(`https://api.github.com/users/repos?per_page=5&sort=created:asc${username}?client_id=4129af26042112503ded&client_secret=b453053237de910a81bfa3564b591f3572539ec9`);
-
-this.setState({repos: res.data.items, loading:false}); 
+const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc${username}?client_id=4129af26042112503ded&client_secret=b453053237de910a81bfa3564b591f3572539ec9`);
+this.setState({repos: res.data, loading:false}); 
 }
   // Clear user from state
   clearUsers = () => this.setState({users: [], loading: false});
@@ -58,7 +57,6 @@ this.setState({repos: res.data.items, loading:false});
   
   render(){
     const  {users,user,repos, loading} = this.state;
-    console.log('process--->',user)
 
      return (
        <Router>
@@ -82,7 +80,7 @@ this.setState({repos: res.data.items, loading:false});
             <Route exact path = '/user/:login' render={props => (<User{...props} 
               getUser={this.getUser}
               getUserRepos = {this.getUserRepos}
-               user={user} 
+               user={users} 
                repos={repos}
                loading={loading}/>)}/>
           </Switch>

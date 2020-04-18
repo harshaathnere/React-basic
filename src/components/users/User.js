@@ -30,8 +30,7 @@ export class User extends Component {
       public_gists,
       hireable
     } = this.props.user;
-    console.log('users-->', this.props)
-    const {loading} = this.props;
+    const {loading, repos} = this.props;
     if(loading) return <Spinner/>
     return (
      < Fragment>
